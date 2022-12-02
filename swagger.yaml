@@ -46,20 +46,13 @@ paths:
               schema:
                 type: object
                 properties:
-                  firstname:
-                    type: string
-                  lastname:
-                    type: string
-                  token:
-                    type: string
-                  email:
-                    type: string
-                  _id:
-                    type: string
-                  date:
-                    type: date
-                  __v:
-                    type: int
+                  firstname: "abc"
+                  lastname: "def"
+                  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4YTVkZmU4NGI2NzMzOTJiZmY3NmE0IiwiZW1haWwiOiJhYmMxMjFAZ21haWwuY29tIiwiaWF0IjoxNjcwMDEyNDE0LCJleHAiOjE2NzAwMTk2MTR9.FrP2IfmjrVT6bEoxYESIFtYVAP_bgR3DwPyULGsRiPo"
+                  email: "abc@gmail.com"
+                  _id: "638a5dfe84b673392bff76a4"
+                  date: "2022-12-02T20:20:14.061Z"
+                  __v: 0
         400:
           description: All fields are required
         401:
