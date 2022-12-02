@@ -29,9 +29,9 @@ paths:
                   type: string
                 lastname:
                   type: string
-                password:
-                  type: string
                 email:
+                  type: string
+                password:
                   type: string
       responses:
         201:
