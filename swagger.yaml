@@ -27,17 +27,12 @@ paths:
               properties:
                 firstname:
                   type: string
-                  required: true
                 lastname:
                   type: string
-                  required: true
                 password:
                   type: string
-                  required: true
                 email:
                   type: string
-                  required: true
-                  unique: true
       responses:
         201:
           description: User registered
@@ -46,13 +41,20 @@ paths:
               schema:
                 type: object
                 properties:
-                  firstname: "abc"
-                  lastname: "def"
-                  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4YTVkZmU4NGI2NzMzOTJiZmY3NmE0IiwiZW1haWwiOiJhYmMxMjFAZ21haWwuY29tIiwiaWF0IjoxNjcwMDEyNDE0LCJleHAiOjE2NzAwMTk2MTR9.FrP2IfmjrVT6bEoxYESIFtYVAP_bgR3DwPyULGsRiPo"
-                  email: "abc@gmail.com"
-                  _id: "638a5dfe84b673392bff76a4"
-                  date: "2022-12-02T20:20:14.061Z"
-                  __v: 0
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  token:
+                    type: string
+                  email:
+                    type: string
+                  _id:
+                    type: string
+                  date:
+                    type: string
+                  __v:
+                    type: integer
         400:
           description: All fields are required
         401:
