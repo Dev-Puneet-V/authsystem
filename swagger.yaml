@@ -21,7 +21,7 @@ paths:
       summary: Register new user
       requestBody:
         content:
-          json:
+          applicationjson:
             schema:
               type: object
               properties:
