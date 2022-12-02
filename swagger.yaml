@@ -1,0 +1,66 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: Authentication API
+  description: API which provided authentication and authorization service
+  contact:
+    name: Puneet
+    email: puneetverma951761@gmail.com
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
+host: 'https://authsystem-production.up.railway.app'
+basePath: /
+schemes:
+  - https
+paths:
+  /register:
+     post:
+      tags:
+        - String
+      summary: Register new user
+      requestBody:
+        content:
+          json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                  required: true
+                lastname:
+                  type: string
+                  required: true
+                password:
+                  type: string
+                  required: true
+                email:
+                  type: string
+                  required: true
+                  unique: true
+      responses:
+        201:
+          description: User registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  token:
+                    type: string
+                  email:
+                    type: string
+                  _id:
+                    type: string
+                  date:
+                    type: date
+                  __v:
+                    type: int
+        400:
+          description: All fields are required
+        401:
+          description: User already exists
