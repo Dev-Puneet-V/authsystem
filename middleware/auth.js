@@ -3,29 +3,27 @@ const jwt = require('jsonwebtoken');
 // model is optional
 
 const auth = (req, res, next) => {
-    console.log(req.cookies)
     const token = 
     req.body.token ||
     req.cookies.token ||
     req.header('Authorization').replace('Bearer ', '');
-
+    
+    console.log(token, req.header('Authorization'),req.cookies.token)
     if (!token) {
-        res.status(403).send('Token in missing');
+        return res.status(403).send('Token in missing');
     }
 
     try {
         const decode = jwt.verify(token, process.env.JWT_SECRET);
         if (Date.now() >= decode.exp * 1000) {
-            return false;
+            return res.status(401).send('Token expired');
         }
-        console.log(decode);
         req.user = decode;
         // bring info from db
     } catch (error) {
-        console.log(error)
-        res.status(401).send('Invalid token');
+        return res.status(401).send(error.message);
     }
-    next();
+    return next();
 }
 
 module.exports = auth;

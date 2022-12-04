@@ -9,7 +9,7 @@ info:
   license:
     name: MIT
     url: 'http://opensource.org/licenses/MIT'
-host: 'https://authsystem-production.up.railway.app'
+host: 'https://authsystem-production.up.railway.app/'
 basePath: /
 schemes:
   - https
@@ -68,6 +68,11 @@ paths:
       responses:
         200:
           description: User LoggedIn
+          headers: 
+            Set-Cookie:
+              schema: 
+                type: string
+                example: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4YTRkM2VkNWMwY2RhYzU3Nzg2MTE1IiwiZW1haWwiOiJhYmMyQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA5ODA0NCwiZXhwIjoxNjcwMTA1MjQ0fQ.ol7oSONQxhudwCEiuAHgSKa7-WOEPkhkdjYgg4VQt5w ; Path=/; HttpOnly
           content:
             application/json:
               schema:
@@ -84,6 +89,22 @@ paths:
                     $ref: '#/components/schemas/User'
         400:
           description: Authentication Failed
+  /dashboard:
+     get:
+      tags:
+        - String
+      summary: Access dashboard using token. This token passed using cookie, req.body or header.
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+            example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4YTRkM2VkNWMwY2RhYzU3Nzg2MTE1IiwiZW1haWwiOiJhYmMyQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA5MTU0MSwiZXhwIjoxNjcwMDk4NzQxfQ.oh9EpnJ9yK7_3oHphdrOiuM6O2HbSkMSTtmcjmIAA2s
+      responses:
+        200:
+          description: Dashboard is accessible
+        400:
+          description: Unauthorized
 
 components:
   schemas:
