@@ -2,10 +2,13 @@ require('dotenv').config();
 require('./config/database').connect();
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const User = require('./model/user');
 const app = express();
 app.use(express.json());
+// to parse the cookie
+app.use(cookieParser());
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
@@ -52,6 +55,7 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     try {
+        res.clearCookie("token");
         const {email, password} = req.body;
         if (!(email && password)) {
             res.status(400).send("Field is missing");
@@ -69,7 +73,17 @@ app.post('/login', async (req, res) => {
             );
             user.token = token;
             user.password = undefined;
-            res.status(200).json(user);
+            //if you want to use cookies
+            const options = {
+                expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+                httpOnly: true // allowed to be read by backend server, not from client server
+            };
+
+            return res.status(200).cookie('token', token, options).json({
+                success: true,
+                token,
+                user
+            });
         }
         res.status(400).send("Email or password is incorrect");
     } catch(error) {

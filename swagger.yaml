@@ -9,10 +9,10 @@ info:
   license:
     name: MIT
     url: 'http://opensource.org/licenses/MIT'
-host: 'https://authsystem-production.up.railway.app'
+host: 'http://localhost:4000'
 basePath: /
 schemes:
-  - https
+  - http
 paths:
   /register:
      post:
@@ -27,35 +27,87 @@ paths:
               properties:
                 firstname:
                   type: string
+                  example: puneet
                 lastname:
                   type: string
+                  example: verma
                 email:
                   type: string
+                  example: puneetverma951761@gmail.com
                 password:
                   type: string
+                  example: abc@123
       responses:
         201:
           description: User registered
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  firstname:
-                    type: string
-                  lastname:
-                    type: string
-                  token:
-                    type: string
-                  email:
-                    type: string
-                  _id:
-                    type: string
-                  date:
-                    type: string
-                  __v:
-                    type: integer
+                $ref: '#/components/schemas/User'
         400:
           description: All fields are required
         401:
           description: User already exists
+  /login:
+     post:
+      tags:
+        - String
+      summary: Autenticate user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: puneetverma951761@gmail.com
+                password:
+                  type: string
+                  example: abc@123
+      responses:
+        200:
+          description: User LoggedIn
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+                    example: true
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4YTRkM2VkNWMwY2RhYzU3Nzg2MTE1IiwiZW1haWwiOiJhYmMyQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA5ODA0NCwiZXhwIjoxNjcwMTA1MjQ0fQ.ol7oSONQxhudwCEiuAHgSKa7-WOEPkhkdjYgg4VQt5w 
+                  user:
+                    type: object
+                    $ref: '#/components/schemas/User'
+        400:
+          description: Authentication Failed
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        firstname:
+          type: string
+          example: Puneet
+        lastname:
+          type: string
+          example: Verma
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4YTRkM2VkNWMwY2RhYzU3Nzg2MTE1IiwiZW1haWwiOiJhYmMyQGdtYWlsLmNvbSIsImlhdCI6MTY3MDA5ODA0NCwiZXhwIjoxNjcwMTA1MjQ0fQ.ol7oSONQxhudwCEiuAHgSKa7-WOEPkhkdjYgg4VQt5w
+        email:
+          type: string
+          example: puneetverma951761@gmail.com
+        _id:
+          type: string
+          example: 638a4d3ed5c0cdac57786115
+        date:
+          type: string
+          example: 2022-12-02T19:08:46.093Z
+        __v:
+          type: integer
+          example: 0
